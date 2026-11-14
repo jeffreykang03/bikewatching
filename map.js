@@ -6,7 +6,7 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 console.log('Mapbox GL JS Loaded:', mapboxgl);
 
 // Set your Mapbox access token here
-mapboxgl.accessToken = 'YOUR_ACCESS_TOKEN_HERE';
+mapboxgl.accessToken = 'pk.eyJ1IjoiamFrMDUzIiwiYSI6ImNtd2ZxdGFpNTA0Z3Yyd3B3Mmd3YWM0b2kifQ.jey8747DlHivDSQ_oc_ZCw';
 
 // Initialize the map
 const map = new mapboxgl.Map({
