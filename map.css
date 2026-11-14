@@ -93,3 +93,16 @@ header em {
 .legend > div:last-child {
   text-align: right;
 }
+
+#tooltip {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  max-width: 18em;
+  padding: 0.4em 0.7em;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 0.9em;
+  pointer-events: none;
+}

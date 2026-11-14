@@ -115,6 +115,7 @@ map.on('load', async () => {
   });
 
   const svg = d3.select('#map').select('svg');
+  const tooltip = d3.select('#tooltip');
 
   let jsonData;
   try {
@@ -164,14 +165,20 @@ map.on('load', async () => {
     .style('--departure-ratio', (d) =>
       stationFlow(d.departures / d.totalTraffic),
     )
-    .each(function (d) {
-      // Add <title> for browser tooltips
-      d3.select(this)
-        .append('title')
-        .text(
-          `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
+    .on('mouseenter', (event, d) => {
+      // Custom tooltip: shows instantly, unlike the browser's <title> tooltip
+      tooltip
+        .style('display', 'block')
+        .html(
+          `<strong>${d.name}</strong><br>${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
         );
-    });
+    })
+    .on('mousemove', (event) => {
+      tooltip
+        .style('left', `${event.clientX + 12}px`)
+        .style('top', `${event.clientY + 12}px`);
+    })
+    .on('mouseleave', () => tooltip.style('display', 'none'));
 
   // Function to update circle positions when the map moves/zooms
   function updatePositions() {
@@ -207,11 +214,6 @@ map.on('load', async () => {
       .attr('r', (d) => radiusScale(d.totalTraffic))
       .style('--departure-ratio', (d) =>
         stationFlow(d.departures / d.totalTraffic),
-      )
-      .select('title')
-      .text(
-        (d) =>
-          `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
       );
   }
 
